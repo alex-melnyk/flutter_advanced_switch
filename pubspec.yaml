@@ -1,7 +1,6 @@
 name: flutter_switcher
 description: A simple switch control.
 version: 0.0.1
-author: Alex Melnyk
 homepage: https://github.com/alex-melnyk
 
 environment:
