@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_switcher:
+  flutter_advanced_switch:
     path: ../
 
 dev_dependencies:

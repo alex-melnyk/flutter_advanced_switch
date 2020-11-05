@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switcher/flutter_switcher.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,13 +24,6 @@ class _MyAppState extends State<MyApp> {
   bool _value10 = false;
   bool _value11 = false;
   bool _value12 = false;
-  bool _value13 = false;
-  bool _value14 = false;
-  bool _value15 = false;
-  bool _value16 = false;
-  bool _value17 = false;
-  bool _value18 = false;
-  bool _value19 = false;
 
   @override
   void initState() {
@@ -42,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter Switcher'),
+          title: const Text('Flutter Advanced Switch'),
         ),
         body: Container(
           width: double.infinity,
@@ -55,14 +48,14 @@ class _MyAppState extends State<MyApp> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _buildLabel('Default Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   value: _value00,
                   onChanged: (value) => setState(() {
                     _value00 = value;
                   }),
                 ),
                 _buildLabel('Number Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   activeLabel: '1',
                   inactiveLabel: '0',
                   value: _value01,
@@ -71,7 +64,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('ON/OFF Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   activeLabel: 'ON',
                   inactiveLabel: 'OFF',
                   width: 70,
@@ -81,7 +74,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('COLOR Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   activeColor: Colors.yellow,
                   inactiveColor: Colors.indigo,
                   activeLabel: 'Yellow',
@@ -93,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('ON/OFF Rounded Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   activeLabel: 'ON',
                   inactiveLabel: 'OFF',
                   borderRadius: BorderRadius.circular(5),
@@ -104,7 +97,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('ON/OFF Rect Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   activeLabel: 'true',
                   inactiveLabel: 'false',
                   borderRadius: BorderRadius.zero,
@@ -115,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('XXS Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 16,
                   height: 8,
                   value: _value06,
@@ -124,7 +117,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('XS Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 32,
                   height: 16,
                   value: _value07,
@@ -133,7 +126,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('Small Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 48,
                   height: 24,
                   value: _value08,
@@ -142,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('Medium Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 56,
                   height: 28,
                   value: _value09,
@@ -151,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('Large Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 72,
                   height: 36,
                   value: _value10,
@@ -161,7 +154,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('XL Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 96,
                   height: 48,
                   value: _value11,
@@ -171,7 +164,7 @@ class _MyAppState extends State<MyApp> {
                   }),
                 ),
                 _buildLabel('XXL Swicther'),
-                FlutterSwitch(
+                AdvancedSwitch(
                   width: 112,
                   height: 56,
                   value: _value12,

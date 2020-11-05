@@ -55,7 +55,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_switcher:
+  flutter_advanced_switch:
     dependency: "direct main"
     description:
       path: ".."

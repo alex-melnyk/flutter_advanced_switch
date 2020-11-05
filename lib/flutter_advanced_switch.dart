@@ -1,8 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
-class FlutterSwitch extends StatefulWidget {
-  const FlutterSwitch({
+class AdvancedSwitch extends StatefulWidget {
+  const AdvancedSwitch({
     Key key,
     @required this.value,
     @required this.onChanged,
@@ -32,12 +32,11 @@ class FlutterSwitch extends StatefulWidget {
   final double height;
 
   @override
-  _FlutterSwitchState createState() => _FlutterSwitchState();
+  _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
 
-class _FlutterSwitchState extends State<FlutterSwitch> with TickerProviderStateMixin {
+class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStateMixin {
   AnimationController _switchAnimController;
-  AnimationController _pressAnimController;
 
   @override
   void initState() {
@@ -49,19 +48,11 @@ class _FlutterSwitchState extends State<FlutterSwitch> with TickerProviderStateM
       value: widget.value ? 1.0 : 0.0,
     );
 
-    _pressAnimController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 150,
-      ),
-      value: widget.value ? 1.0 : 0.0,
-    );
-
     super.initState();
   }
 
   @override
-  void didUpdateWidget(FlutterSwitch oldWidget) {
+  void didUpdateWidget(AdvancedSwitch oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.value == widget.value) {
