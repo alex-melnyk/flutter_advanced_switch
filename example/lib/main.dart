@@ -47,14 +47,27 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildLabel('Default Swicther'),
+                _buildLabel('Default Switch'),
                 AdvancedSwitch(
                   value: _value00,
                   onChanged: (value) => setState(() {
                     _value00 = value;
                   }),
                 ),
-                _buildLabel('Number Swicther'),
+                _buildLabel('Disabled Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AdvancedSwitch(
+                      value: false,
+                    ),
+                    SizedBox(width: 25),
+                    AdvancedSwitch(
+                      value: true,
+                    ),
+                  ],
+                ),
+                _buildLabel('Number Switch'),
                 AdvancedSwitch(
                   activeLabel: '1',
                   inactiveLabel: '0',
@@ -63,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                     _value01 = value;
                   }),
                 ),
-                _buildLabel('ON/OFF Swicther'),
+                _buildLabel('ON/OFF Switch'),
                 AdvancedSwitch(
                   activeLabel: 'ON',
                   inactiveLabel: 'OFF',
@@ -73,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                     _value02 = value;
                   }),
                 ),
-                _buildLabel('COLOR Swicther'),
+                _buildLabel('COLOR Switch'),
                 AdvancedSwitch(
                   activeColor: Colors.yellow,
                   inactiveColor: Colors.indigo,
@@ -85,7 +98,7 @@ class _MyAppState extends State<MyApp> {
                     _value03 = value;
                   }),
                 ),
-                _buildLabel('ON/OFF Rounded Swicther'),
+                _buildLabel('ON/OFF Rounded Switch'),
                 AdvancedSwitch(
                   activeLabel: 'ON',
                   inactiveLabel: 'OFF',
@@ -96,7 +109,7 @@ class _MyAppState extends State<MyApp> {
                     _value04 = value;
                   }),
                 ),
-                _buildLabel('ON/OFF Rect Swicther'),
+                _buildLabel('ON/OFF Rect Switch'),
                 AdvancedSwitch(
                   activeLabel: 'true',
                   inactiveLabel: 'false',
@@ -107,7 +120,7 @@ class _MyAppState extends State<MyApp> {
                     _value05 = value;
                   }),
                 ),
-                _buildLabel('XXS Swicther'),
+                _buildLabel('XXS Switch'),
                 AdvancedSwitch(
                   width: 16,
                   height: 8,
@@ -116,7 +129,7 @@ class _MyAppState extends State<MyApp> {
                     _value06 = value;
                   }),
                 ),
-                _buildLabel('XS Swicther'),
+                _buildLabel('XS Switch'),
                 AdvancedSwitch(
                   width: 32,
                   height: 16,
@@ -125,7 +138,7 @@ class _MyAppState extends State<MyApp> {
                     _value07 = value;
                   }),
                 ),
-                _buildLabel('Small Swicther'),
+                _buildLabel('Small Switch'),
                 AdvancedSwitch(
                   width: 48,
                   height: 24,
@@ -134,7 +147,7 @@ class _MyAppState extends State<MyApp> {
                     _value08 = value;
                   }),
                 ),
-                _buildLabel('Medium Swicther'),
+                _buildLabel('Medium Switch'),
                 AdvancedSwitch(
                   width: 56,
                   height: 28,
@@ -143,7 +156,7 @@ class _MyAppState extends State<MyApp> {
                     _value09 = value;
                   }),
                 ),
-                _buildLabel('Large Swicther'),
+                _buildLabel('Large Switch'),
                 AdvancedSwitch(
                   width: 72,
                   height: 36,
@@ -153,7 +166,7 @@ class _MyAppState extends State<MyApp> {
                     _value10 = value;
                   }),
                 ),
-                _buildLabel('XL Swicther'),
+                _buildLabel('XL Switch'),
                 AdvancedSwitch(
                   width: 96,
                   height: 48,
@@ -163,7 +176,7 @@ class _MyAppState extends State<MyApp> {
                     _value11 = value;
                   }),
                 ),
-                _buildLabel('XXL Swicther'),
+                _buildLabel('XXL Switch'),
                 AdvancedSwitch(
                   width: 112,
                   height: 56,

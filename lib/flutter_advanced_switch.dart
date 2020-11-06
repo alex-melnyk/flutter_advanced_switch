@@ -5,7 +5,6 @@ class AdvancedSwitch extends StatefulWidget {
   const AdvancedSwitch({
     Key key,
     @required this.value,
-    @required this.onChanged,
     this.activeColor = Colors.green,
     this.inactiveColor = Colors.grey,
     this.activeLabel,
@@ -15,8 +14,8 @@ class AdvancedSwitch extends StatefulWidget {
     this.borderRadius = const BorderRadius.all(const Radius.circular(14)),
     this.width = 56.0,
     this.height = 28.0,
+    this.onChanged,
   })  : assert(value != null),
-        assert(onChanged != null),
         super(key: key);
 
   final bool value;
@@ -85,22 +84,25 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     return AnimatedBuilder(
       animation: _switchAnimController,
       builder: (_, child) {
-        return Container(
-          width: dWidth,
-          height: dHeight,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-            borderRadius: widget.borderRadius,
-            color: animation.value,
+        return Opacity(
+          opacity: widget.onChanged != null ? 1 : 0.5,
+          child: Container(
+            width: dWidth,
+            height: dHeight,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(
+              borderRadius: widget.borderRadius,
+              color: animation.value,
+            ),
+            child: child,
           ),
-          child: child,
         );
       },
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: widget.borderRadius,
-          onTap: () => widget.onChanged(!checked),
+          onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
           child: AnimatedBuilder(
             animation: _switchAnimController,
             builder: (context, child) {
@@ -143,6 +145,8 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     bool right = false,
     TextStyle textStyle,
   }) {
+    final theme = Theme.of(context);
+
     return Container(
       width: labelSize,
       height: widget.height,
