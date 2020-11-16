@@ -60,5 +60,6 @@ AdvancedSwitch(
 // ...
 ```
 
-## DEMO
-![Flutter Advanced Switch Preview](./PREVIEW.gif)
+# Demo
+
+![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)
