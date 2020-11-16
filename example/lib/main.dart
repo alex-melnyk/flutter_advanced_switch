@@ -11,7 +11,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _value00 = false;
   bool _value01 = false;
   bool _value02 = false;
   bool _value03 = false;
@@ -24,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   bool _value10 = false;
   bool _value11 = false;
   bool _value12 = false;
+  bool _value13 = false;
+  bool _value14 = false;
 
   @override
   void initState() {
@@ -49,9 +50,9 @@ class _MyAppState extends State<MyApp> {
               children: [
                 _buildLabel('Default Switch'),
                 AdvancedSwitch(
-                  value: _value00,
+                  value: _value01,
                   onChanged: (value) => setState(() {
-                    _value00 = value;
+                    _value01 = value;
                   }),
                 ),
                 _buildLabel('Disabled Switch'),
@@ -67,124 +68,158 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
-                _buildLabel('Number Switch'),
-                AdvancedSwitch(
-                  activeLabel: '1',
-                  inactiveLabel: '0',
-                  value: _value01,
-                  onChanged: (value) => setState(() {
-                    _value01 = value;
-                  }),
+                _buildLabel('Color/Image Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      activeColor: Colors.yellow,
+                      inactiveColor: Colors.indigo,
+                      activeLabel: 'Yellow',
+                      inactiveLabel: 'Indigo',
+                      width: 90,
+                      value: _value03,
+                      onChanged: (value) => setState(() {
+                        _value03 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      value: _value13,
+                      activeImage: AssetImage('assets/images/day_sky.png'),
+                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+                      onChanged: (value) => setState(() {
+                        _value13 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      value: _value14,
+                      width: 80,
+                      activeLabel: 'DAY',
+                      inactiveLabel: 'NIGHT',
+                      activeImage: AssetImage('assets/images/day_sky.png'),
+                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+                      onChanged: (value) => setState(() {
+                        _value14 = value;
+                      }),
+                    ),
+                  ],
                 ),
                 _buildLabel('ON/OFF Switch'),
-                AdvancedSwitch(
-                  activeLabel: 'ON',
-                  inactiveLabel: 'OFF',
-                  width: 70,
-                  value: _value02,
-                  onChanged: (value) => setState(() {
-                    _value02 = value;
-                  }),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      activeLabel: '1',
+                      inactiveLabel: '0',
+                      width: 70,
+                      value: _value02,
+                      onChanged: (value) => setState(() {
+                        _value02 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      activeLabel: 'ON',
+                      inactiveLabel: 'OFF',
+                      borderRadius: BorderRadius.circular(5),
+                      width: 76,
+                      value: _value04,
+                      onChanged: (value) => setState(() {
+                        _value04 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      activeLabel: 'true',
+                      inactiveLabel: 'false',
+                      borderRadius: BorderRadius.zero,
+                      width: 76,
+                      value: _value05,
+                      onChanged: (value) => setState(() {
+                        _value05 = value;
+                      }),
+                    ),
+                  ],
                 ),
-                _buildLabel('COLOR Switch'),
-                AdvancedSwitch(
-                  activeColor: Colors.yellow,
-                  inactiveColor: Colors.indigo,
-                  activeLabel: 'Yellow',
-                  inactiveLabel: 'Indigo',
-                  width: 90,
-                  value: _value03,
-                  onChanged: (value) => setState(() {
-                    _value03 = value;
-                  }),
+                _buildLabel('XXS/XS Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 16,
+                      height: 8,
+                      value: _value06,
+                      onChanged: (value) => setState(() {
+                        _value06 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      width: 32,
+                      height: 16,
+                      value: _value07,
+                      onChanged: (value) => setState(() {
+                        _value07 = value;
+                      }),
+                    ),
+                  ],
                 ),
-                _buildLabel('ON/OFF Rounded Switch'),
-                AdvancedSwitch(
-                  activeLabel: 'ON',
-                  inactiveLabel: 'OFF',
-                  borderRadius: BorderRadius.circular(5),
-                  width: 76,
-                  value: _value04,
-                  onChanged: (value) => setState(() {
-                    _value04 = value;
-                  }),
+                _buildLabel('S/M/L Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 48,
+                      height: 24,
+                      value: _value08,
+                      onChanged: (value) => setState(() {
+                        _value08 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      width: 56,
+                      height: 28,
+                      value: _value09,
+                      onChanged: (value) => setState(() {
+                        _value09 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      width: 72,
+                      height: 36,
+                      value: _value10,
+                      borderRadius: BorderRadius.circular(18),
+                      onChanged: (value) => setState(() {
+                        _value10 = value;
+                      }),
+                    ),
+                  ],
                 ),
-                _buildLabel('ON/OFF Rect Switch'),
-                AdvancedSwitch(
-                  activeLabel: 'true',
-                  inactiveLabel: 'false',
-                  borderRadius: BorderRadius.zero,
-                  width: 76,
-                  value: _value05,
-                  onChanged: (value) => setState(() {
-                    _value05 = value;
-                  }),
-                ),
-                _buildLabel('XXS Switch'),
-                AdvancedSwitch(
-                  width: 16,
-                  height: 8,
-                  value: _value06,
-                  onChanged: (value) => setState(() {
-                    _value06 = value;
-                  }),
-                ),
-                _buildLabel('XS Switch'),
-                AdvancedSwitch(
-                  width: 32,
-                  height: 16,
-                  value: _value07,
-                  onChanged: (value) => setState(() {
-                    _value07 = value;
-                  }),
-                ),
-                _buildLabel('Small Switch'),
-                AdvancedSwitch(
-                  width: 48,
-                  height: 24,
-                  value: _value08,
-                  onChanged: (value) => setState(() {
-                    _value08 = value;
-                  }),
-                ),
-                _buildLabel('Medium Switch'),
-                AdvancedSwitch(
-                  width: 56,
-                  height: 28,
-                  value: _value09,
-                  onChanged: (value) => setState(() {
-                    _value09 = value;
-                  }),
-                ),
-                _buildLabel('Large Switch'),
-                AdvancedSwitch(
-                  width: 72,
-                  height: 36,
-                  value: _value10,
-                  borderRadius: BorderRadius.circular(18),
-                  onChanged: (value) => setState(() {
-                    _value10 = value;
-                  }),
-                ),
-                _buildLabel('XL Switch'),
-                AdvancedSwitch(
-                  width: 96,
-                  height: 48,
-                  value: _value11,
-                  borderRadius: BorderRadius.circular(24),
-                  onChanged: (value) => setState(() {
-                    _value11 = value;
-                  }),
-                ),
-                _buildLabel('XXL Switch'),
-                AdvancedSwitch(
-                  width: 112,
-                  height: 56,
-                  value: _value12,
-                  borderRadius: BorderRadius.circular(29),
-                  onChanged: (value) => setState(() {
-                    _value12 = value;
-                  }),
+                _buildLabel('XL/XXL Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 96,
+                      height: 48,
+                      value: _value11,
+                      borderRadius: BorderRadius.circular(24),
+                      onChanged: (value) => setState(() {
+                        _value11 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      width: 112,
+                      height: 56,
+                      value: _value12,
+                      borderRadius: BorderRadius.circular(29),
+                      onChanged: (value) => setState(() {
+                        _value12 = value;
+                      }),
+                    ),
+                  ],
                 ),
               ],
             ),

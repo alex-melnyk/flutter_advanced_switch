@@ -11,6 +11,8 @@ class AdvancedSwitch extends StatefulWidget {
     this.inactiveLabel,
     this.activeTextStyle,
     this.inactiveTextStyle,
+    this.activeImage,
+    this.inactiveImage,
     this.borderRadius = const BorderRadius.all(const Radius.circular(14)),
     this.width = 56.0,
     this.height = 28.0,
@@ -26,6 +28,8 @@ class AdvancedSwitch extends StatefulWidget {
   final String inactiveLabel;
   final TextStyle activeTextStyle;
   final TextStyle inactiveTextStyle;
+  final ImageProvider activeImage;
+  final ImageProvider inactiveImage;
   final BorderRadius borderRadius;
   final double width;
   final double height;
@@ -35,15 +39,14 @@ class AdvancedSwitch extends StatefulWidget {
 }
 
 class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStateMixin {
-  AnimationController _switchAnimController;
+  final _duration = Duration(milliseconds: 250);
+  AnimationController _animationController;
 
   @override
   void initState() {
-    _switchAnimController = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
-      duration: Duration(
-        milliseconds: 250,
-      ),
+      duration: _duration,
       value: widget.value ? 1.0 : 0.0,
     );
 
@@ -59,9 +62,9 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     }
 
     if (widget.value) {
-      _switchAnimController.forward();
+      _animationController.forward();
     } else {
-      _switchAnimController.reverse();
+      _animationController.reverse();
     }
   }
 
@@ -72,29 +75,31 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     final animation = ColorTween(
       begin: widget.inactiveColor,
       end: widget.activeColor,
-    ).animate(_switchAnimController);
+    ).animate(_animationController);
 
-    final dWidth = widget.width;
-    final dHeight = widget.height;
-
-    final switchSize = dHeight;
-    final labelSize = dWidth - switchSize;
+    final switchSize = widget.height;
+    final labelSize = widget.width - switchSize;
     final contentSize = labelSize * 2 + switchSize;
 
     return AnimatedBuilder(
-      animation: _switchAnimController,
+      animation: _animationController,
       builder: (_, child) {
         return Opacity(
           opacity: widget.onChanged != null ? 1 : 0.5,
           child: Container(
-            width: dWidth,
-            height: dHeight,
+            width: widget.width,
+            height: widget.height,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               borderRadius: widget.borderRadius,
               color: animation.value,
             ),
-            child: child,
+            child: Stack(
+              children: [
+                if (widget.activeImage != null || widget.inactiveImage != null) _buildBackgroundImage(),
+                child,
+              ],
+            ),
           ),
         );
       },
@@ -104,13 +109,13 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
           borderRadius: widget.borderRadius,
           onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
           child: AnimatedBuilder(
-            animation: _switchAnimController,
+            animation: _animationController,
             builder: (context, child) {
               return Transform.translate(
                 offset: Tween<Offset>(
-                  begin: Offset(-(dWidth / 2) + (switchSize / 2), 0),
-                  end: Offset((dWidth / 2) - (switchSize / 2), 0),
-                ).animate(_switchAnimController).value,
+                  begin: Offset(-(widget.width / 2) + (switchSize / 2), 0),
+                  end: Offset((widget.width / 2) - (switchSize / 2), 0),
+                ).animate(_animationController).value,
                 child: child,
               );
             },
@@ -124,7 +129,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
                     widget.activeLabel,
                     labelSize,
                   ),
-                  _buildSwitch(switchSize),
+                  _buildThumb(switchSize),
                   _buildLabel(
                     widget.inactiveLabel,
                     labelSize,
@@ -139,14 +144,31 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     );
   }
 
+  Widget _buildBackgroundImage() {
+    return AnimatedCrossFade(
+      crossFadeState: widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      duration: _duration,
+      firstChild: Image(
+        width: widget.width,
+        height: widget.height,
+        image: widget.inactiveImage ?? widget.activeImage,
+        fit: BoxFit.cover,
+      ),
+      secondChild: Image(
+        width: widget.width,
+        height: widget.height,
+        image: widget.activeImage ?? widget.inactiveImage,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
   Widget _buildLabel(
     String value,
     double labelSize, {
     bool right = false,
     TextStyle textStyle,
   }) {
-    final theme = Theme.of(context);
-
     return Container(
       width: labelSize,
       height: widget.height,
@@ -164,7 +186,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
     );
   }
 
-  Widget _buildSwitch(double switchSize) {
+  Widget _buildThumb(double switchSize) {
     final size = Size(
       switchSize - 2,
       switchSize - 2,
@@ -177,6 +199,12 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: widget.borderRadius.subtract(BorderRadius.circular(1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 8,
+          )
+        ]
       ),
     );
   }
