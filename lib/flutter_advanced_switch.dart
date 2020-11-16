@@ -7,32 +7,49 @@ class AdvancedSwitch extends StatefulWidget {
     @required this.value,
     this.activeColor = Colors.green,
     this.inactiveColor = Colors.grey,
-    this.activeLabel,
-    this.inactiveLabel,
-    this.activeTextStyle,
-    this.inactiveTextStyle,
+    this.activeChild,
+    this.inactiveChild,
     this.activeImage,
     this.inactiveImage,
-    this.borderRadius = const BorderRadius.all(const Radius.circular(14)),
-    this.width = 56.0,
-    this.height = 28.0,
+    this.borderRadius = const BorderRadius.all(const Radius.circular(15)),
+    this.width = 50.0,
+    this.height = 30.0,
     this.onChanged,
   })  : assert(value != null),
         super(key: key);
 
+  /// Determines current state.
   final bool value;
-  final ValueChanged<bool> onChanged;
+
+  /// Determines background color for the active state.
   final Color activeColor;
+
+  /// Determines background color for the inactive state.
   final Color inactiveColor;
-  final String activeLabel;
-  final String inactiveLabel;
-  final TextStyle activeTextStyle;
-  final TextStyle inactiveTextStyle;
+
+  /// Determines label for the active state.
+  final Widget activeChild;
+
+  /// Determines label for the inactive state.
+  final Widget inactiveChild;
+
+  /// Determines background image for the active state.
   final ImageProvider activeImage;
+
+  /// Determines background image for the inactive state.
   final ImageProvider inactiveImage;
+
+  /// Determines border radius.
   final BorderRadius borderRadius;
+
+  /// Determines width.
   final double width;
+
+  /// Determines height.
   final double height;
+
+  /// Called on interaction.
+  final ValueChanged<bool> onChanged;
 
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
@@ -41,16 +58,17 @@ class AdvancedSwitch extends StatefulWidget {
 class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProviderStateMixin {
   final _duration = Duration(milliseconds: 250);
   AnimationController _animationController;
+  Animation<Offset> _slideAnimation;
   Animation<Color> _colorAnimation;
-  Animation<Offset> _positionAnimation;
+  double _thumbSize;
 
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this,
-        duration: _duration,
-        value: widget.value ? 1.0 : 0.0,
-        animationBehavior: AnimationBehavior.preserve);
+      vsync: this,
+      duration: _duration,
+      value: widget.value ? 1.0 : 0.0,
+    );
 
     _initAnimation();
 
@@ -58,27 +76,29 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
   }
 
   void _initAnimation() {
-    _positionAnimation = Tween<Offset>(
-      begin: Offset(-(widget.width / 2) + (widget.height / 2), 0),
-      end: Offset((widget.width / 2) - (widget.height / 2), 0),
-    ).animate(CurvedAnimation(
+    _thumbSize = widget.height;
+    final offset = widget.width / 2 - _thumbSize / 2;
+
+    final animation = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
-    ));
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(-offset, 0),
+      end: Offset(offset, 0),
+    ).animate(animation);
 
     _colorAnimation = ColorTween(
       begin: widget.inactiveColor,
       end: widget.activeColor,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    ).animate(animation);
   }
 
   @override
   void didUpdateWidget(AdvancedSwitch oldWidget) {
     if (oldWidget.value == widget.value) {
-      return;
+      return super.didUpdateWidget(oldWidget);
     }
 
     if (widget.value) {
@@ -86,21 +106,16 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
     } else {
       _animationController.reverse();
     }
+
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    final checked = widget.value;
-
-    final switchSize = widget.height;
-    final labelSize = widget.width - switchSize;
-    final contentSize = labelSize * 2 + switchSize;
-
     return GestureDetector(
-      onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
+      onTap: widget.onChanged != null ? () => widget.onChanged(!widget.value) : null,
       child: Opacity(
-        opacity: widget.onChanged != null ? 1 : 0.5,
+        opacity: widget.onChanged != null ? 1.0 : 0.5,
         child: AnimatedBuilder(
           animation: _animationController,
           builder: (_, child) {
@@ -122,32 +137,35 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
                 animation: _animationController,
                 builder: (context, child) {
                   return Transform.translate(
-                    offset: _positionAnimation.value,
+                    offset: _slideAnimation.value,
                     child: child,
                   );
                 },
-                child: OverflowBox(
-                  minWidth: contentSize,
-                  maxWidth: contentSize,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildLabel(
-                        widget.activeLabel,
-                        labelSize,
-                      ),
-                      _buildThumb(switchSize),
-                      _buildLabel(
-                        widget.inactiveLabel,
-                        labelSize,
-                      ),
-                    ],
-                  ),
-                ),
+                child: _buildSlider(),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSlider() {
+    final labelSize = widget.width - _thumbSize;
+    final containerSize = labelSize * 2 + _thumbSize;
+
+    return OverflowBox(
+      minWidth: containerSize,
+      maxWidth: containerSize,
+      minHeight: widget.height,
+      maxHeight: widget.height,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildLabel(widget.activeChild, labelSize),
+          _buildThumb(),
+          _buildLabel(widget.inactiveChild, labelSize),
+        ],
       ),
     );
   }
@@ -171,38 +189,33 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
     );
   }
 
-  Widget _buildLabel(
-    String value,
-    double labelSize, {
-    TextStyle textStyle,
-  }) {
-    return Container(
-      width: labelSize,
-      height: widget.height,
-      alignment: Alignment.center,
-      child: Text(
-        value ?? '',
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.clip,
-        maxLines: 1,
+  Widget _buildLabel(Widget child, double labelSize) {
+    return IconTheme(
+      data: IconThemeData(
+        color: Colors.white,
+        size: 20,
+      ),
+      child: DefaultTextStyle(
         style: TextStyle(
-          fontWeight: FontWeight.w500,
           color: Colors.white,
-        ).merge(textStyle),
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+        ),
+        child: Container(
+          width: labelSize,
+          height: widget.height,
+          alignment: Alignment.center,
+          child: child,
+        ),
       ),
     );
   }
 
-  Widget _buildThumb(double switchSize) {
-    final size = Size(
-      switchSize - 2,
-      switchSize - 2,
-    );
-
+  Widget _buildThumb() {
     return Container(
-      margin: EdgeInsets.all(1),
-      width: size.width,
-      height: size.height,
+      margin: EdgeInsets.all(2),
+      width: _thumbSize - 4,
+      height: _thumbSize - 4,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: widget.borderRadius.subtract(BorderRadius.circular(1)),
@@ -210,7 +223,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
           BoxShadow(
             color: Colors.black26,
             blurRadius: 8,
-          )
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   bool _value12 = false;
   bool _value13 = false;
   bool _value14 = false;
+  bool _value15 = false;
 
   @override
   void initState() {
@@ -68,7 +70,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
-                _buildLabel('Color/Image Switch'),
+                _buildLabel('Color/Icon/Image Switch'),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -76,12 +78,26 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       activeColor: Colors.yellow,
                       inactiveColor: Colors.indigo,
-                      activeLabel: 'Yellow',
-                      inactiveLabel: 'Indigo',
-                      width: 90,
+                      activeChild: Text('Yellow'),
+                      inactiveChild: Text('Indigo'),
+                      width: 80,
                       value: _value03,
                       onChanged: (value) => setState(() {
                         _value03 = value;
+                      }),
+                    ),
+                    AdvancedSwitch(
+                      activeChild: Icon(
+                        MaterialCommunityIcons.weather_sunny,
+                        color: Colors.blue,
+                      ),
+                      inactiveChild: Icon(MaterialCommunityIcons.weather_night),
+                      activeColor: Colors.yellowAccent,
+                      inactiveColor: Colors.deepPurple,
+                      width: 60,
+                      value: _value15,
+                      onChanged: (value) => setState(() {
+                        _value15 = value;
                       }),
                     ),
                     AdvancedSwitch(
@@ -95,8 +111,8 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       value: _value14,
                       width: 80,
-                      activeLabel: 'DAY',
-                      inactiveLabel: 'NIGHT',
+                      activeChild: Text('DAY'),
+                      inactiveChild: Text('NIGHT'),
                       activeImage: AssetImage('assets/images/day_sky.png'),
                       inactiveImage: AssetImage('assets/images/night_sky.jpg'),
                       onChanged: (value) => setState(() {
@@ -111,8 +127,8 @@ class _MyAppState extends State<MyApp> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     AdvancedSwitch(
-                      activeLabel: '1',
-                      inactiveLabel: '0',
+                      activeChild: Text('1'),
+                      inactiveChild: Text('0'),
                       width: 70,
                       value: _value02,
                       onChanged: (value) => setState(() {
@@ -120,8 +136,8 @@ class _MyAppState extends State<MyApp> {
                       }),
                     ),
                     AdvancedSwitch(
-                      activeLabel: 'ON',
-                      inactiveLabel: 'OFF',
+                      activeChild: Text('ON'),
+                      inactiveChild: Text('OFF'),
                       borderRadius: BorderRadius.circular(5),
                       width: 76,
                       value: _value04,
@@ -130,8 +146,8 @@ class _MyAppState extends State<MyApp> {
                       }),
                     ),
                     AdvancedSwitch(
-                      activeLabel: 'true',
-                      inactiveLabel: 'false',
+                      activeChild: Text('true'),
+                      inactiveChild: Text('false'),
                       borderRadius: BorderRadius.zero,
                       width: 76,
                       value: _value05,
