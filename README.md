@@ -2,9 +2,9 @@
 An advanced swicth widget, that can be fully customized with size, text, color, radius of corners.
 
 
-| Switch ON State | Switch OFF State |
+| Switch OFF State | Switch ON State |
 |:-:|:-:|
-| ![Flutter Advanced Switch On State](./SWITCH_OFF.jpg) | ![Flutter Advanced Switch Off State](./SWITCH_ON.jpg) |
+| ![Flutter Advanced Switch Off State](./SWITCH_OFF.jpg) | ![Flutter Advanced Switch On State](./SWITCH_ON.jpg) |
 
 ## Gettings Started
 In the `pubspec.yaml` of your flutter project, add the following dependency:
