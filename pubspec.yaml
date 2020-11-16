@@ -1,6 +1,6 @@
 name: flutter_advanced_switch
 description: An advanced switch control.
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/alex-melnyk/flutter_advanced_switch
 repository: https://github.com/alex-melnyk/flutter_advanced_switch
 issue_tracker: https://github.com/alex-melnyk/flutter_advanced_switch/issues
@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_icons: any
+  flutter_icons: ^1.1.0
 
 dev_dependencies:
   flutter_test:

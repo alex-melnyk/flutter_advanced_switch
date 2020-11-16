@@ -1,12 +1,11 @@
-# flutter_switcher
+# flutter_advanced_switch
 An advanced swicth widget, that can be fully customized with size, text, color, radius of corners.
-
 
 | Switch OFF State | Switch ON State |
 |:-:|:-:|
 | ![Flutter Advanced Switch Off State](./SWITCH_OFF.jpg) | ![Flutter Advanced Switch On State](./SWITCH_ON.jpg) |
 
-## Gettings Started
+## Getting Started
 In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
@@ -21,9 +20,9 @@ Import in your project:
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 ```
 
-## Basic Example
+## Basic Examples
 
-Default switch
+Default Switch
 
 ```dart
 // ...
@@ -36,7 +35,7 @@ AdvancedSwitch(
 // ...
 ```
 
-Customized switch
+Customized Switch
 
 ```dart
 // ...
@@ -44,12 +43,10 @@ AdvancedSwitch(
     value: _value, // Boolean
     activeColor: Colors.green, // Color
     inactiveColor: Colors.grey, // Color
-    activeLabel: 'ON', // String
-    inactiveLabel: 'OFF',  // String
-    activeTextStyle: theme.textTheme.bodyText1, // TextStyle
-    inactiveTextStyle: theme.textTheme.bodyText1, // TextStyle
-    activeImage: theme.textTheme.bodyText1, // ImageProvider
-    inactiveImage: theme.textTheme.bodyText1, // ImageProvider
+    activeChild: Text('ON'), // Widget
+    inactiveChild: Text('OFF'),  // Widget
+    activeImage: AssetImage('assets/images/on.png'), // ImageProvider
+    inactiveImage: AssetImage('assets/images/off.png'), // ImageProvider
     borderRadius: BorderRadius.all(const Radius.circular(15)), // BorderRadius
     width: 50.0, // Double
     height: 30.0, // Double
@@ -60,5 +57,6 @@ AdvancedSwitch(
 // ...
 ```
 
-## DEMO
-![Flutter Advanced Switch Preview](./PREVIEW.gif)
+# Demo
+
+![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)
