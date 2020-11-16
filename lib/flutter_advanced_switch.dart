@@ -47,10 +47,10 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
   @override
   void initState() {
     _animationController = AnimationController(
-      vsync: this,
-      duration: _duration,
-      value: widget.value ? 1.0 : 0.0,
-    );
+        vsync: this,
+        duration: _duration,
+        value: widget.value ? 1.0 : 0.0,
+        animationBehavior: AnimationBehavior.preserve);
 
     _initAnimation();
 
@@ -61,18 +61,22 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
     _positionAnimation = Tween<Offset>(
       begin: Offset(-(widget.width / 2) + (widget.height / 2), 0),
       end: Offset((widget.width / 2) - (widget.height / 2), 0),
-    ).animate(_animationController);
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
 
     _colorAnimation = ColorTween(
       begin: widget.inactiveColor,
       end: widget.activeColor,
-    ).animate(_animationController);
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
   }
 
   @override
   void didUpdateWidget(AdvancedSwitch oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
     if (oldWidget.value == widget.value) {
       return;
     }
@@ -82,6 +86,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
     } else {
       _animationController.reverse();
     }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -92,28 +97,24 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
     final labelSize = widget.width - switchSize;
     final contentSize = labelSize * 2 + switchSize;
 
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (_, child) {
-        return Opacity(
-          opacity: widget.onChanged != null ? 1 : 0.5,
-          child: Container(
-            width: widget.width,
-            height: widget.height,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            decoration: BoxDecoration(
-              borderRadius: widget.borderRadius,
-              color: _colorAnimation.value,
-            ),
-            child: child,
-          ),
-        );
-      },
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: widget.borderRadius,
-          onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
+    return GestureDetector(
+      onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
+      child: Opacity(
+        opacity: widget.onChanged != null ? 1 : 0.5,
+        child: AnimatedBuilder(
+          animation: _animationController,
+          builder: (_, child) {
+            return Container(
+              width: widget.width,
+              height: widget.height,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: widget.borderRadius,
+                color: _colorAnimation.value,
+              ),
+              child: child,
+            );
+          },
           child: Stack(
             children: [
               if (widget.activeImage != null || widget.inactiveImage != null) _buildBackgroundImage(),
@@ -213,5 +214,12 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 }
