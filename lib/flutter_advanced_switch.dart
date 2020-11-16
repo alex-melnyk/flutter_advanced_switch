@@ -38,9 +38,11 @@ class AdvancedSwitch extends StatefulWidget {
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
 
-class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStateMixin {
+class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProviderStateMixin {
   final _duration = Duration(milliseconds: 250);
   AnimationController _animationController;
+  Animation<Color> _colorAnimation;
+  Animation<Offset> _positionAnimation;
 
   @override
   void initState() {
@@ -50,7 +52,21 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
       value: widget.value ? 1.0 : 0.0,
     );
 
+    _initAnimation();
+
     super.initState();
+  }
+
+  void _initAnimation() {
+    _positionAnimation = Tween<Offset>(
+      begin: Offset(-(widget.width / 2) + (widget.height / 2), 0),
+      end: Offset((widget.width / 2) - (widget.height / 2), 0),
+    ).animate(_animationController);
+
+    _colorAnimation = ColorTween(
+      begin: widget.inactiveColor,
+      end: widget.activeColor,
+    ).animate(_animationController);
   }
 
   @override
@@ -72,11 +88,6 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
   Widget build(BuildContext context) {
     final checked = widget.value;
 
-    final animation = ColorTween(
-      begin: widget.inactiveColor,
-      end: widget.activeColor,
-    ).animate(_animationController);
-
     final switchSize = widget.height;
     final labelSize = widget.width - switchSize;
     final contentSize = labelSize * 2 + switchSize;
@@ -92,14 +103,9 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               borderRadius: widget.borderRadius,
-              color: animation.value,
+              color: _colorAnimation.value,
             ),
-            child: Stack(
-              children: [
-                if (widget.activeImage != null || widget.inactiveImage != null) _buildBackgroundImage(),
-                child,
-              ],
-            ),
+            child: child,
           ),
         );
       },
@@ -108,36 +114,37 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
         child: InkWell(
           borderRadius: widget.borderRadius,
           onTap: widget.onChanged != null ? () => widget.onChanged(!checked) : null,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Tween<Offset>(
-                  begin: Offset(-(widget.width / 2) + (switchSize / 2), 0),
-                  end: Offset((widget.width / 2) - (switchSize / 2), 0),
-                ).animate(_animationController).value,
-                child: child,
-              );
-            },
-            child: OverflowBox(
-              minWidth: contentSize,
-              maxWidth: contentSize,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildLabel(
-                    widget.activeLabel,
-                    labelSize,
+          child: Stack(
+            children: [
+              if (widget.activeImage != null || widget.inactiveImage != null) _buildBackgroundImage(),
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: _positionAnimation.value,
+                    child: child,
+                  );
+                },
+                child: OverflowBox(
+                  minWidth: contentSize,
+                  maxWidth: contentSize,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _buildLabel(
+                        widget.activeLabel,
+                        labelSize,
+                      ),
+                      _buildThumb(switchSize),
+                      _buildLabel(
+                        widget.inactiveLabel,
+                        labelSize,
+                      ),
+                    ],
                   ),
-                  _buildThumb(switchSize),
-                  _buildLabel(
-                    widget.inactiveLabel,
-                    labelSize,
-                    right: true,
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -166,7 +173,6 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
   Widget _buildLabel(
     String value,
     double labelSize, {
-    bool right = false,
     TextStyle textStyle,
   }) {
     return Container(
@@ -204,7 +210,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with TickerProviderStat
             color: Colors.black26,
             blurRadius: 8,
           )
-        ]
+        ],
       ),
     );
   }
