@@ -20,9 +20,9 @@ Import in your project:
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 ```
 
-## Basic Examples
+## Examples
 
-Default Switch
+Regular Switch
 
 ```dart
 // ...
