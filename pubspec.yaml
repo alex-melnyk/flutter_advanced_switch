@@ -1,6 +1,6 @@
 name: flutter_advanced_switch
-description: An advanced switch control.
-version: 0.0.8
+description: An advanced switch control provides a rich API for widget customization that opens a new look and feel in your app.
+version: 0.0.9
 homepage: https://github.com/alex-melnyk/flutter_advanced_switch
 repository: https://github.com/alex-melnyk/flutter_advanced_switch
 issue_tracker: https://github.com/alex-melnyk/flutter_advanced_switch/issues

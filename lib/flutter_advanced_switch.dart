@@ -55,7 +55,8 @@ class AdvancedSwitch extends StatefulWidget {
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
 
-class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProviderStateMixin {
+class _AdvancedSwitchState extends State<AdvancedSwitch>
+    with SingleTickerProviderStateMixin {
   final _duration = Duration(milliseconds: 250);
   AnimationController _animationController;
   Animation<Offset> _slideAnimation;
@@ -113,7 +114,9 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onChanged != null ? () => widget.onChanged(!widget.value) : null,
+      onTap: widget.onChanged != null
+          ? () => widget.onChanged(!widget.value)
+          : null,
       child: Opacity(
         opacity: widget.onChanged != null ? 1.0 : 0.5,
         child: AnimatedBuilder(
@@ -132,7 +135,8 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
           },
           child: Stack(
             children: [
-              if (widget.activeImage != null || widget.inactiveImage != null) _buildBackgroundImage(),
+              if (widget.activeImage != null || widget.inactiveImage != null)
+                _buildBackgroundImage(),
               AnimatedBuilder(
                 animation: _animationController,
                 builder: (context, child) {
@@ -172,7 +176,8 @@ class _AdvancedSwitchState extends State<AdvancedSwitch> with SingleTickerProvid
 
   Widget _buildBackgroundImage() {
     return AnimatedCrossFade(
-      crossFadeState: widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState:
+          widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: _duration,
       firstChild: Image(
         width: widget.width,
