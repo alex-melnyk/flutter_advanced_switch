@@ -1,3 +1,12 @@
+## 0.0.9+3
+
+* Changelog information provided.
+
+## 0.0.9+2
+
+* Code formatting fixed.
+* Documentation url fixed.
+
 ## 0.0.8
 
 * Documentation improved.
