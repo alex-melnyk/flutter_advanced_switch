@@ -1,3 +1,7 @@
+## 0.0.9+4
+
+* License changed to MIT.
+
 ## 0.0.9+3
 
 * Changelog information provided.
