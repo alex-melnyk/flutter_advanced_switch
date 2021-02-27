@@ -1,3 +1,7 @@
+## 1.0.0+1
+
+* Code format fixed.
+
 ## 1.0.0
 
 * State management changed to controller.

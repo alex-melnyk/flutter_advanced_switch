@@ -196,7 +196,8 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
                         height: _thumbSize - 4,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: widget.borderRadius.subtract(BorderRadius.circular(1)),
+                          borderRadius: widget.borderRadius
+                              .subtract(BorderRadius.circular(1)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black26,
