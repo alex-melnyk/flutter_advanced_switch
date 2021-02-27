@@ -1,10 +1,14 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
+class AdvancedSwitchController extends ValueNotifier<bool> {
+  AdvancedSwitchController([bool value = false]) : super(value);
+}
+
 class AdvancedSwitch extends StatefulWidget {
   const AdvancedSwitch({
     Key key,
-    @required this.value,
+    this.controller,
     this.activeColor = Colors.green,
     this.inactiveColor = Colors.grey,
     this.activeChild,
@@ -14,12 +18,10 @@ class AdvancedSwitch extends StatefulWidget {
     this.borderRadius = const BorderRadius.all(const Radius.circular(15)),
     this.width = 50.0,
     this.height = 30.0,
-    this.onChanged,
-  })  : assert(value != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Determines current state.
-  final bool value;
+  final AdvancedSwitchController controller;
 
   /// Determines background color for the active state.
   final Color activeColor;
@@ -48,9 +50,6 @@ class AdvancedSwitch extends StatefulWidget {
   /// Determines height.
   final double height;
 
-  /// Called on interaction.
-  final ValueChanged<bool> onChanged;
-
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
@@ -58,6 +57,7 @@ class AdvancedSwitch extends StatefulWidget {
 class _AdvancedSwitchState extends State<AdvancedSwitch>
     with SingleTickerProviderStateMixin {
   final _duration = Duration(milliseconds: 250);
+  AdvancedSwitchController _controller;
   AnimationController _animationController;
   Animation<Offset> _slideAnimation;
   Animation<Color> _colorAnimation;
@@ -65,15 +65,25 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
 
   @override
   void initState() {
+    super.initState();
+
+    _controller = widget.controller ?? AdvancedSwitchController();
+
+    _controller.addListener(() {
+      if (_controller.value) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    });
+
     _animationController = AnimationController(
       vsync: this,
       duration: _duration,
-      value: widget.value ? 1.0 : 0.0,
+      value: _controller.value ? 1.0 : 0.0,
     );
 
     _initAnimation();
-
-    super.initState();
   }
 
   void _initAnimation() {
@@ -97,28 +107,14 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   }
 
   @override
-  void didUpdateWidget(AdvancedSwitch oldWidget) {
-    if (oldWidget.value == widget.value) {
-      return super.didUpdateWidget(oldWidget);
-    }
-
-    if (widget.value) {
-      _animationController.forward();
-    } else {
-      _animationController.reverse();
-    }
-
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final labelSize = widget.width - _thumbSize;
+    final containerSize = labelSize * 2 + _thumbSize;
+
     return GestureDetector(
-      onTap: widget.onChanged != null
-          ? () => widget.onChanged(!widget.value)
-          : null,
+      onTap: _handlePressed,
       child: Opacity(
-        opacity: widget.onChanged != null ? 1.0 : 0.5,
+        opacity: widget.controller == null ? 0.5 : 1.0,
         child: AnimatedBuilder(
           animation: _animationController,
           builder: (_, child) {
@@ -136,7 +132,29 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
           child: Stack(
             children: [
               if (widget.activeImage != null || widget.inactiveImage != null)
-                _buildBackgroundImage(),
+                ValueListenableBuilder(
+                  valueListenable: _controller,
+                  builder: (context, value, child) {
+                    return AnimatedCrossFade(
+                      crossFadeState: _controller.value
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      duration: _duration,
+                      firstChild: Image(
+                        width: widget.width,
+                        height: widget.height,
+                        image: widget.inactiveImage ?? widget.activeImage,
+                        fit: BoxFit.cover,
+                      ),
+                      secondChild: Image(
+                        width: widget.width,
+                        height: widget.height,
+                        image: widget.activeImage ?? widget.inactiveImage,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
               AnimatedBuilder(
                 animation: _animationController,
                 builder: (context, child) {
@@ -145,7 +163,70 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
                     child: child,
                   );
                 },
-                child: _buildSlider(),
+                child: OverflowBox(
+                  minWidth: containerSize,
+                  maxWidth: containerSize,
+                  minHeight: widget.height,
+                  maxHeight: widget.height,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconTheme(
+                        data: IconThemeData(
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        child: DefaultTextStyle(
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                          child: Container(
+                            width: labelSize,
+                            height: widget.height,
+                            alignment: Alignment.center,
+                            child: widget.activeChild,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(2),
+                        width: _thumbSize - 4,
+                        height: _thumbSize - 4,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: widget.borderRadius.subtract(BorderRadius.circular(1)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 8,
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconTheme(
+                        data: IconThemeData(
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        child: DefaultTextStyle(
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                          child: Container(
+                            width: labelSize,
+                            height: widget.height,
+                            alignment: Alignment.center,
+                            child: widget.inactiveChild,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -154,89 +235,19 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     );
   }
 
-  Widget _buildSlider() {
-    final labelSize = widget.width - _thumbSize;
-    final containerSize = labelSize * 2 + _thumbSize;
-
-    return OverflowBox(
-      minWidth: containerSize,
-      maxWidth: containerSize,
-      minHeight: widget.height,
-      maxHeight: widget.height,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildLabel(widget.activeChild, labelSize),
-          _buildThumb(),
-          _buildLabel(widget.inactiveChild, labelSize),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBackgroundImage() {
-    return AnimatedCrossFade(
-      crossFadeState:
-          widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-      duration: _duration,
-      firstChild: Image(
-        width: widget.width,
-        height: widget.height,
-        image: widget.inactiveImage ?? widget.activeImage,
-        fit: BoxFit.cover,
-      ),
-      secondChild: Image(
-        width: widget.width,
-        height: widget.height,
-        image: widget.activeImage ?? widget.inactiveImage,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget _buildLabel(Widget child, double labelSize) {
-    return IconTheme(
-      data: IconThemeData(
-        color: Colors.white,
-        size: 20,
-      ),
-      child: DefaultTextStyle(
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        child: Container(
-          width: labelSize,
-          height: widget.height,
-          alignment: Alignment.center,
-          child: child,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThumb() {
-    return Container(
-      margin: EdgeInsets.all(2),
-      width: _thumbSize - 4,
-      height: _thumbSize - 4,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: widget.borderRadius.subtract(BorderRadius.circular(1)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 8,
-          ),
-        ],
-      ),
-    );
+  void _handlePressed() {
+    if (widget.controller != null) {
+      _controller.value = !_controller.value;
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
 
     super.dispose();
   }

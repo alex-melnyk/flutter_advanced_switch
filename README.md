@@ -25,12 +25,10 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 Regular Switch
 
 ```dart
+final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
-    value: _value, // Boolean
-    onChanged: (value) => setState(() { // Callback (or null to disable)
-        _value = value;
-    }),
+    controller: _controller, // AdvancedSwitchController
 )
 // ...
 ```
@@ -38,9 +36,10 @@ AdvancedSwitch(
 Customized Switch
 
 ```dart
+final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
-    value: _value, // Boolean
+    controller: _controller, // AdvancedSwitchController
     activeColor: Colors.green, // Color
     inactiveColor: Colors.grey, // Color
     activeChild: Text('ON'), // Widget
@@ -50,9 +49,6 @@ AdvancedSwitch(
     borderRadius: BorderRadius.all(const Radius.circular(15)), // BorderRadius
     width: 50.0, // Double
     height: 30.0, // Double
-    onChanged: (value) => setState(() { // Callback (or null to disable)
-        _value = value;
-    }),
 ),
 // ...
 ```

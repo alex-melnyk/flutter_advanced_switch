@@ -12,21 +12,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _value01 = false;
-  bool _value02 = false;
-  bool _value03 = false;
-  bool _value04 = false;
-  bool _value05 = false;
-  bool _value06 = false;
-  bool _value07 = false;
-  bool _value08 = false;
-  bool _value09 = false;
-  bool _value10 = false;
-  bool _value11 = false;
-  bool _value12 = false;
-  bool _value13 = false;
-  bool _value14 = false;
-  bool _value15 = false;
+  final _controller01 = AdvancedSwitchController();
+  final _controller02 = AdvancedSwitchController();
+  final _controller03 = AdvancedSwitchController();
+  final _controller04 = AdvancedSwitchController();
+  final _controller05 = AdvancedSwitchController();
+  final _controller06 = AdvancedSwitchController();
+  final _controller07 = AdvancedSwitchController();
+  final _controller08 = AdvancedSwitchController();
+  final _controller09 = AdvancedSwitchController();
+  final _controller10 = AdvancedSwitchController();
+  final _controller11 = AdvancedSwitchController();
+  final _controller12 = AdvancedSwitchController();
+  final _controller13 = AdvancedSwitchController();
+  final _controller14 = AdvancedSwitchController();
+  final _controller15 = AdvancedSwitchController();
 
   @override
   void initState() {
@@ -52,21 +52,18 @@ class _MyAppState extends State<MyApp> {
               children: [
                 _buildLabel('Default Switch'),
                 AdvancedSwitch(
-                  value: _value01,
-                  onChanged: (value) => setState(() {
-                    _value01 = value;
-                  }),
+                  controller: _controller01,
                 ),
                 _buildLabel('Disabled Switch'),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     AdvancedSwitch(
-                      value: false,
+                      controller: AdvancedSwitchController(false),
                     ),
                     SizedBox(width: 25),
                     AdvancedSwitch(
-                      value: true,
+                      controller: AdvancedSwitchController(true),
                     ),
                   ],
                 ),
@@ -81,10 +78,7 @@ class _MyAppState extends State<MyApp> {
                       activeChild: Text('Yellow'),
                       inactiveChild: Text('Indigo'),
                       width: 80,
-                      value: _value03,
-                      onChanged: (value) => setState(() {
-                        _value03 = value;
-                      }),
+                      controller: _controller03,
                     ),
                     AdvancedSwitch(
                       activeChild: Icon(
@@ -95,29 +89,20 @@ class _MyAppState extends State<MyApp> {
                       activeColor: Colors.yellowAccent,
                       inactiveColor: Colors.deepPurple,
                       width: 60,
-                      value: _value15,
-                      onChanged: (value) => setState(() {
-                        _value15 = value;
-                      }),
+                      controller: _controller15,
                     ),
                     AdvancedSwitch(
-                      value: _value13,
+                      controller: _controller13,
                       activeImage: AssetImage('assets/images/day_sky.png'),
                       inactiveImage: AssetImage('assets/images/night_sky.jpg'),
-                      onChanged: (value) => setState(() {
-                        _value13 = value;
-                      }),
                     ),
                     AdvancedSwitch(
-                      value: _value14,
+                      controller: _controller14,
                       width: 80,
                       activeChild: Text('DAY'),
                       inactiveChild: Text('NIGHT'),
                       activeImage: AssetImage('assets/images/day_sky.png'),
                       inactiveImage: AssetImage('assets/images/night_sky.jpg'),
-                      onChanged: (value) => setState(() {
-                        _value14 = value;
-                      }),
                     ),
                   ],
                 ),
@@ -130,30 +115,21 @@ class _MyAppState extends State<MyApp> {
                       activeChild: Text('1'),
                       inactiveChild: Text('0'),
                       width: 70,
-                      value: _value02,
-                      onChanged: (value) => setState(() {
-                        _value02 = value;
-                      }),
+                      controller: _controller02,
                     ),
                     AdvancedSwitch(
                       activeChild: Text('ON'),
                       inactiveChild: Text('OFF'),
                       borderRadius: BorderRadius.circular(5),
                       width: 76,
-                      value: _value04,
-                      onChanged: (value) => setState(() {
-                        _value04 = value;
-                      }),
+                      controller: _controller04,
                     ),
                     AdvancedSwitch(
                       activeChild: Text('true'),
                       inactiveChild: Text('false'),
                       borderRadius: BorderRadius.zero,
                       width: 76,
-                      value: _value05,
-                      onChanged: (value) => setState(() {
-                        _value05 = value;
-                      }),
+                      controller: _controller05,
                     ),
                   ],
                 ),
@@ -165,18 +141,12 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       width: 16,
                       height: 8,
-                      value: _value06,
-                      onChanged: (value) => setState(() {
-                        _value06 = value;
-                      }),
+                      controller: _controller06,
                     ),
                     AdvancedSwitch(
                       width: 32,
                       height: 16,
-                      value: _value07,
-                      onChanged: (value) => setState(() {
-                        _value07 = value;
-                      }),
+                      controller: _controller07,
                     ),
                   ],
                 ),
@@ -188,27 +158,18 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       width: 48,
                       height: 24,
-                      value: _value08,
-                      onChanged: (value) => setState(() {
-                        _value08 = value;
-                      }),
+                      controller: _controller08,
                     ),
                     AdvancedSwitch(
                       width: 56,
                       height: 28,
-                      value: _value09,
-                      onChanged: (value) => setState(() {
-                        _value09 = value;
-                      }),
+                      controller: _controller09,
                     ),
                     AdvancedSwitch(
                       width: 72,
                       height: 36,
-                      value: _value10,
+                      controller: _controller10,
                       borderRadius: BorderRadius.circular(18),
-                      onChanged: (value) => setState(() {
-                        _value10 = value;
-                      }),
                     ),
                   ],
                 ),
@@ -220,20 +181,14 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       width: 96,
                       height: 48,
-                      value: _value11,
+                      controller: _controller11,
                       borderRadius: BorderRadius.circular(24),
-                      onChanged: (value) => setState(() {
-                        _value11 = value;
-                      }),
                     ),
                     AdvancedSwitch(
                       width: 112,
                       height: 56,
-                      value: _value12,
+                      controller: _controller12,
                       borderRadius: BorderRadius.circular(29),
-                      onChanged: (value) => setState(() {
-                        _value12 = value;
-                      }),
                     ),
                   ],
                 ),

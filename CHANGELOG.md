@@ -1,3 +1,7 @@
+## 1.0.0
+
+* State management changed to controller.
+
 ## 0.0.9+4
 
 * License changed to MIT.
