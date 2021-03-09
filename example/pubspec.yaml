@@ -12,9 +12,7 @@ dependencies:
   flutter_advanced_switch:
     path: ../
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  flutter_icons: any
 
 flutter:
   uses-material-design: true
