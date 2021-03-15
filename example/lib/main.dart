@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter Advanced Switch'),
+          title: const Text('Advanced Switch Example'),
         ),
         body: Container(
           width: double.infinity,
