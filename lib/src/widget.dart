@@ -13,7 +13,11 @@ class AdvancedSwitch extends StatefulWidget {
     this.borderRadius = const BorderRadius.all(const Radius.circular(15)),
     this.width = 50.0,
     this.height = 30.0,
+    this.enabled = true,
   }) : super(key: key);
+
+  /// Determines if widget is enabled
+  final bool enabled;
 
   /// Determines current state.
   final AdvancedSwitchController? controller;
@@ -109,7 +113,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     return GestureDetector(
       onTap: _handlePressed,
       child: Opacity(
-        opacity: widget.controller == null ? 0.5 : 1.0,
+        opacity: widget.enabled ? 1 : 0.5,
         child: AnimatedBuilder(
           animation: _animationController,
           builder: (_, child) {
@@ -232,7 +236,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   }
 
   void _handlePressed() {
-    if (widget.controller != null) {
+    if (widget.controller != null && widget.enabled) {
       _controller.value = !_controller.value;
     }
   }

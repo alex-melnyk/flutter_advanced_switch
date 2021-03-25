@@ -59,10 +59,12 @@ class _MyAppState extends State<MyApp> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     AdvancedSwitch(
+                      enabled: false,
                       controller: AdvancedSwitchController(false),
                     ),
                     SizedBox(width: 25),
                     AdvancedSwitch(
+                      enabled: false,
                       controller: AdvancedSwitchController(true),
                     ),
                   ],

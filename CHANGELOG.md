@@ -1,3 +1,7 @@
+## 2.0.1
+
+* enabled/disabled property
+
 ## 2.0.0
 
 * Null Safety implemented.
