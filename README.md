@@ -3,7 +3,8 @@ An advanced swicth widget, that can be fully customized with size, text, color, 
 
 | Switch OFF State | Switch ON State |
 |:-:|:-:|
-| ![Flutter Advanced Switch Off State](./SWITCH_OFF.jpg) | ![Flutter Advanced Switch On State](./SWITCH_ON.jpg) |
+| ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_LIGHT_ON.png) |
+| ![Flutter Advanced Switch Off State](./PREVIEW_DARK_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK_ON.png) |
 
 ## Getting Started
 In the `pubspec.yaml` of your flutter project, add the following dependency:
@@ -28,7 +29,7 @@ Regular Switch
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
-    controller: _controller, // AdvancedSwitchController
+    controller: _controller,
 )
 // ...
 ```
@@ -39,19 +40,35 @@ Customized Switch
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
-    controller: _controller, // AdvancedSwitchController
-    activeColor: Colors.green, // Color
-    inactiveColor: Colors.grey, // Color
-    activeChild: Text('ON'), // Widget
-    inactiveChild: Text('OFF'),  // Widget
-    activeImage: AssetImage('assets/images/on.png'), // ImageProvider
-    inactiveImage: AssetImage('assets/images/off.png'), // ImageProvider
-    borderRadius: BorderRadius.all(const Radius.circular(15)), // BorderRadius
-    width: 50.0, // Double
-    height: 30.0, // Double
+    controller: _controller,
+    activeColor: Colors.green,
+    inactiveColor: Colors.grey,
+    activeChild: Text('ON'),
+    inactiveChild: Text('OFF'), 
+    activeImage: AssetImage('assets/images/on.png'),
+    inactiveImage: AssetImage('assets/images/off.png'),
+    borderRadius: BorderRadius.all(const Radius.circular(15)),
+    width: 50.0,
+    height: 30.0,
+    enabled: true,
 ),
 // ...
 ```
+
+## AdvancedSwitch Parameters
+|Parameter|Description|Type|Default|
+|:--------|:----------|:---|:------|
+|`controller`| |*AdvancedSwitchController*||
+|`activeColor`| |*Color*|Colors.green|
+|`inactiveColor`| |*Color*|Colors.grey|
+|`activeChild`| |*Widget*||
+|`inactiveChild`| |*Widget*||
+|`activeImage`| |*ImageProvider*||
+|`inactiveImage`| |*ImageProvider*||
+|`borderRadius`| |*BorderRadius*|Radius.circular(15)|
+|`width`| |*Double*|50.0|
+|`height`| |*Double*|30.0|
+|`enabled`| |*bool*|true|
 
 # Demo
 

@@ -28,14 +28,13 @@ class _MyAppState extends State<MyApp> {
   final _controller14 = AdvancedSwitchController();
   final _controller15 = AdvancedSwitchController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  bool _enabled = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Advanced Switch Example'),
@@ -59,14 +58,19 @@ class _MyAppState extends State<MyApp> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     AdvancedSwitch(
-                      enabled: false,
+                      enabled: _enabled,
                       controller: AdvancedSwitchController(false),
                     ),
                     SizedBox(width: 25),
                     AdvancedSwitch(
-                      enabled: false,
+                      enabled: _enabled,
                       controller: AdvancedSwitchController(true),
                     ),
+                    SizedBox(width: 25),
+                    ElevatedButton(
+                      onPressed: () => setState(() => _enabled = !_enabled),
+                      child: Text('Enable/Disable'),
+                    )
                   ],
                 ),
                 _buildLabel('Color/Icon/Image Switch'),

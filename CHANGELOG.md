@@ -1,6 +1,7 @@
 ## 2.0.1
 
-* enabled/disabled property
+* Enabled/disabled state property.
+* Documentation improved.
 
 ## 2.0.0
 
