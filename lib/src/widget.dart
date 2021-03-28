@@ -14,6 +14,7 @@ class AdvancedSwitch extends StatefulWidget {
     this.width = 50.0,
     this.height = 30.0,
     this.enabled = true,
+    this.disabledOpacity = 0.5,
   }) : super(key: key);
 
   /// Determines if widget is enabled
@@ -48,6 +49,9 @@ class AdvancedSwitch extends StatefulWidget {
 
   /// Determines height.
   final double height;
+
+  /// Determines opacity of disabled control.
+  final double disabledOpacity;
 
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
@@ -113,7 +117,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     return GestureDetector(
       onTap: _handlePressed,
       child: Opacity(
-        opacity: widget.enabled ? 1 : 0.5,
+        opacity: widget.enabled ? 1 : widget.disabledOpacity,
         child: AnimatedBuilder(
           animation: _animationController,
           builder: (_, child) {
