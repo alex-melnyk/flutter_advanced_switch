@@ -1,5 +1,5 @@
 # flutter_advanced_switch
-An advanced swicth widget, that can be fully customized with size, text, color, radius of corners.
+An advanced switch widget, that can be fully customized with size, text, color, radius of corners.
 
 | Switch OFF State | Switch ON State |
 |:-:|:-:|
