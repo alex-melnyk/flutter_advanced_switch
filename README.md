@@ -73,5 +73,4 @@ AdvancedSwitch(
 |`disabledOpacity`|Determines opacity of disabled control.|*double*|0.5|
 
 # Demo
-
 ![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)
