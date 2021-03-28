@@ -51,6 +51,7 @@ AdvancedSwitch(
     width: 50.0,
     height: 30.0,
     enabled: true,
+    disabledOpacity: 0.5,
 ),
 // ...
 ```
@@ -58,17 +59,18 @@ AdvancedSwitch(
 ## AdvancedSwitch Parameters
 |Parameter|Description|Type|Default|
 |:--------|:----------|:---|:------|
-|`controller`| |*AdvancedSwitchController*||
-|`activeColor`| |*Color*|Colors.green|
-|`inactiveColor`| |*Color*|Colors.grey|
-|`activeChild`| |*Widget*||
-|`inactiveChild`| |*Widget*||
-|`activeImage`| |*ImageProvider*||
-|`inactiveImage`| |*ImageProvider*||
-|`borderRadius`| |*BorderRadius*|Radius.circular(15)|
-|`width`| |*Double*|50.0|
-|`height`| |*Double*|30.0|
-|`enabled`| |*bool*|true|
+|`controller`|Determines if widget is enabled.|*AdvancedSwitchController*||
+|`activeColor`|Determines current state.|*Color*|Colors.green|
+|`inactiveColor`|Determines background color for the active state.|*Color*|Colors.grey|
+|`activeChild`|Determines background color for the inactive state.|*Widget*||
+|`inactiveChild`|Determines label for the active state.|*Widget*||
+|`activeImage`|Determines label for the inactive state.|*ImageProvider*||
+|`inactiveImage`|Determines background image for the active state.|*ImageProvider*||
+|`borderRadius`|Determines background image for the inactive state.|*BorderRadius*|Radius.circular(15)|
+|`width`|Determines border radius.|*Double*|50.0|
+|`height`|Determines width.|*Double*|30.0|
+|`enabled`|Determines height.|*bool*|true|
+|`disabledOpacity`|Determines opacity of disabled control.|*double*|0.5|
 
 # Demo
 

@@ -1,3 +1,7 @@
+## 2.0.2
+
+* Disabled opacity property added.
+
 ## 2.0.1
 
 * Enabled/disabled state property.
