@@ -1,3 +1,7 @@
+## 2.0.2+1
+
+* LICENSE CHANGED.
+
 ## 2.0.2
 
 * Disabled opacity property added.
