@@ -114,125 +114,128 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     final labelSize = widget.width - _thumbSize;
     final containerSize = labelSize * 2 + _thumbSize;
 
-    return GestureDetector(
-      onTap: _handlePressed,
-      child: Opacity(
-        opacity: widget.enabled ? 1 : widget.disabledOpacity,
-        child: AnimatedBuilder(
-          animation: _animationController,
-          builder: (_, child) {
-            return Container(
-              width: widget.width,
-              height: widget.height,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: widget.borderRadius,
-                color: _colorAnimation.value,
-              ),
-              child: child,
-            );
-          },
-          child: Stack(
-            children: [
-              if (widget.activeImage != null || widget.inactiveImage != null)
-                ValueListenableBuilder<bool>(
-                  valueListenable: _controller,
-                  builder: (_, __, ___) {
-                    return AnimatedCrossFade(
-                      crossFadeState: _controller.value
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: _duration,
-                      firstChild: Image(
-                        width: widget.width,
-                        height: widget.height,
-                        image: widget.inactiveImage ?? widget.activeImage!,
-                        fit: BoxFit.cover,
-                      ),
-                      secondChild: Image(
-                        width: widget.width,
-                        height: widget.height,
-                        image: widget.activeImage ?? widget.inactiveImage!,
-                        fit: BoxFit.cover,
-                      ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: _handlePressed,
+        child: Opacity(
+          opacity: widget.enabled ? 1 : widget.disabledOpacity,
+          child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (_, child) {
+              return Container(
+                width: widget.width,
+                height: widget.height,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: widget.borderRadius,
+                  color: _colorAnimation.value,
+                ),
+                child: child,
+              );
+            },
+            child: Stack(
+              children: [
+                if (widget.activeImage != null || widget.inactiveImage != null)
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _controller,
+                    builder: (_, __, ___) {
+                      return AnimatedCrossFade(
+                        crossFadeState: _controller.value
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: _duration,
+                        firstChild: Image(
+                          width: widget.width,
+                          height: widget.height,
+                          image: widget.inactiveImage ?? widget.activeImage!,
+                          fit: BoxFit.cover,
+                        ),
+                        secondChild: Image(
+                          width: widget.width,
+                          height: widget.height,
+                          image: widget.activeImage ?? widget.inactiveImage!,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset: _slideAnimation.value,
+                      child: child,
                     );
                   },
-                ),
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) {
-                  return Transform.translate(
-                    offset: _slideAnimation.value,
-                    child: child,
-                  );
-                },
-                child: OverflowBox(
-                  minWidth: containerSize,
-                  maxWidth: containerSize,
-                  minHeight: widget.height,
-                  maxHeight: widget.height,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconTheme(
-                        data: IconThemeData(
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        child: DefaultTextStyle(
-                          style: TextStyle(
+                  child: OverflowBox(
+                    minWidth: containerSize,
+                    maxWidth: containerSize,
+                    minHeight: widget.height,
+                    maxHeight: widget.height,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconTheme(
+                          data: IconThemeData(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            size: 20,
                           ),
-                          child: Container(
-                            width: labelSize,
-                            height: widget.height,
-                            alignment: Alignment.center,
-                            child: widget.activeChild,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(2),
-                        width: _thumbSize - 4,
-                        height: _thumbSize - 4,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: widget.borderRadius
-                              .subtract(BorderRadius.circular(1)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 8,
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
                             ),
-                          ],
+                            child: Container(
+                              width: labelSize,
+                              height: widget.height,
+                              alignment: Alignment.center,
+                              child: widget.activeChild,
+                            ),
+                          ),
                         ),
-                      ),
-                      IconTheme(
-                        data: IconThemeData(
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        child: DefaultTextStyle(
-                          style: TextStyle(
+                        Container(
+                          margin: EdgeInsets.all(2),
+                          width: _thumbSize - 4,
+                          height: _thumbSize - 4,
+                          decoration: BoxDecoration(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                          ),
-                          child: Container(
-                            width: labelSize,
-                            height: widget.height,
-                            alignment: Alignment.center,
-                            child: widget.inactiveChild,
+                            borderRadius: widget.borderRadius
+                                .subtract(BorderRadius.circular(1)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 8,
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                        IconTheme(
+                          data: IconThemeData(
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                            ),
+                            child: Container(
+                              width: labelSize,
+                              height: widget.height,
+                              alignment: Alignment.center,
+                              child: widget.inactiveChild,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

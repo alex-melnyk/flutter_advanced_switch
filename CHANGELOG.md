@@ -1,3 +1,7 @@
+## 2.0.2+2
+
+* Pointing cursor added for web.
+
 ## 2.0.2+1
 
 * LICENSE CHANGED.

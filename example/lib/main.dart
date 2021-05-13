@@ -31,6 +31,17 @@ class _MyAppState extends State<MyApp> {
   bool _enabled = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    // How to use controller value example:
+    //
+    // _controller01.addListener(() {
+    //   final currentValue = _controller01.value;
+    // });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
