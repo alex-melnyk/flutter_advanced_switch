@@ -15,6 +15,7 @@ class AdvancedSwitch extends StatefulWidget {
     this.height = 30.0,
     this.enabled = true,
     this.disabledOpacity = 0.5,
+    this.thumb,
   }) : super(key: key);
 
   /// Determines if widget is enabled
@@ -52,6 +53,9 @@ class AdvancedSwitch extends StatefulWidget {
 
   /// Determines opacity of disabled control.
   final double disabledOpacity;
+
+  /// Thumb widget.
+  final Widget? thumb;
 
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
@@ -199,16 +203,18 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
                           margin: EdgeInsets.all(2),
                           width: _thumbSize - 4,
                           height: _thumbSize - 4,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: widget.borderRadius
-                                .subtract(BorderRadius.circular(1)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 8,
-                              ),
-                            ],
+                          child: widget.thumb ?? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: widget.borderRadius
+                                  .subtract(BorderRadius.circular(1)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         IconTheme(

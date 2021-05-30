@@ -61,8 +61,25 @@ class _MyAppState extends State<MyApp> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _buildLabel('Default Switch'),
-                AdvancedSwitch(
-                  controller: _controller01,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AdvancedSwitch(
+                      controller: _controller01,
+                    ),
+                    SizedBox(width: 25),
+                    AdvancedSwitch(
+                      controller: _controller01,
+                      thumb: ValueListenableBuilder(
+                        valueListenable: _controller01,
+                        builder: (_, value, __) {
+                          return Icon(value
+                              ? Icons.cloud_upload
+                              : Icons.cloud_download);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 _buildLabel('Disabled Switch'),
                 Row(
@@ -232,5 +249,26 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller01.dispose();
+    _controller02.dispose();
+    _controller03.dispose();
+    _controller04.dispose();
+    _controller05.dispose();
+    _controller06.dispose();
+    _controller07.dispose();
+    _controller08.dispose();
+    _controller09.dispose();
+    _controller10.dispose();
+    _controller11.dispose();
+    _controller12.dispose();
+    _controller13.dispose();
+    _controller14.dispose();
+    _controller15.dispose();
+
+    super.dispose();
   }
 }
