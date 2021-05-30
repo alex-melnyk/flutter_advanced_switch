@@ -1,3 +1,7 @@
+## 2.1.0
+
+* Change thumb with a custom widget support provided.
+
 ## 2.0.2+2
 
 * Pointing cursor added for web.
