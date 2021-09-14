@@ -23,9 +23,46 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 
 ## Examples
 
+### How to use
+
+```dart
+// ...
+// 1. Create a controller in the state of the StatefulWidget
+final _controller = AdvancedSwitchController();
+
+// 2. In case, you want to call setState on switch changes.
+// 2.1. Add event listener, for example in the initState() method.
+// ...
+bool _checked = false;
+
+// ...
+@override
+void initState() {
+  super.initState();
+
+  _controller.addListener(() {
+    setState(() {
+      if (_controller00.value) {
+        _checked = true;
+      } else {
+        _checked = false;
+      }
+    });
+  });
+}
+
+// 3. Add AdvancedSwitch to the build method.
+// ...
+AdvancedSwitch(
+    controller: _controller,
+),
+// ...
+```
+
 Regular Switch
 
 ```dart
+// ...
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
@@ -37,6 +74,7 @@ AdvancedSwitch(
 Customized Switch
 
 ```dart
+// ...
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
@@ -52,6 +90,26 @@ AdvancedSwitch(
     height: 30.0,
     enabled: true,
     disabledOpacity: 0.5,
+),
+// ...
+```
+
+Custom thumb
+
+```dart
+// ...
+final _controller = AdvancedSwitchController();
+// ...
+AdvancedSwitch(
+    controller: _controller,
+    thumb: ValueListenableBuilder(
+        valueListenable: _controller,
+        builder: (_, value, __) {
+            return Icon(value
+                ? Icons.lightbulb
+                : Icons.lightbulb_outline);
+        },
+    ),
 ),
 // ...
 ```

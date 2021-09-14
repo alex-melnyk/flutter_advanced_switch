@@ -12,6 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _controller00 = AdvancedSwitchController();
   final _controller01 = AdvancedSwitchController();
   final _controller02 = AdvancedSwitchController();
   final _controller03 = AdvancedSwitchController();
@@ -29,23 +30,27 @@ class _MyAppState extends State<MyApp> {
   final _controller15 = AdvancedSwitchController();
 
   bool _enabled = false;
+  bool _themeDark = false;
 
   @override
   void initState() {
     super.initState();
 
-    // How to use controller value example:
-    //
-    // _controller01.addListener(() {
-    //   final currentValue = _controller01.value;
-    // });
+    _controller00.addListener(() {
+      setState(() {
+        if (_controller00.value) {
+          _themeDark = true;
+        } else {
+          _themeDark = false;
+        }
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: _themeDark ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Advanced Switch Example'),
@@ -60,6 +65,18 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                _buildLabel('Switch Theme'),
+                AdvancedSwitch(
+                  controller: _controller00,
+                  thumb: ValueListenableBuilder(
+                    valueListenable: _controller00,
+                    builder: (_, value, __) {
+                      return Icon(value
+                          ? Icons.lightbulb
+                          : Icons.lightbulb_outline);
+                    },
+                  ),
+                ),
                 _buildLabel('Default Switch'),
                 Row(
                   mainAxisSize: MainAxisSize.min,
