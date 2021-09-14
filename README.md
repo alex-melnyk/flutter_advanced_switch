@@ -1,10 +1,9 @@
 # flutter_advanced_switch
 An advanced switch widget, that can be fully customized with size, text, color, radius of corners.
 
-| Switch OFF State | Switch ON State |
+| Switch Light | Switch Dark |
 |:-:|:-:|
-| ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_LIGHT_ON.png) |
-| ![Flutter Advanced Switch Off State](./PREVIEW_DARK_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK_ON.png) |
+| ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK.png) |
 
 ## Getting Started
 In the `pubspec.yaml` of your flutter project, add the following dependency:
@@ -23,9 +22,46 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 
 ## Examples
 
+### How to use
+
+```dart
+// ...
+// 1. Create a controller in the state of the StatefulWidget
+final _controller = AdvancedSwitchController();
+
+// 2. In case, you want to call setState on switch changes.
+// 2.1. Add event listener, for example in the initState() method.
+// ...
+bool _checked = false;
+
+// ...
+@override
+void initState() {
+  super.initState();
+
+  _controller.addListener(() {
+    setState(() {
+      if (_controller00.value) {
+        _checked = true;
+      } else {
+        _checked = false;
+      }
+    });
+  });
+}
+
+// 3. Add AdvancedSwitch to the build method.
+// ...
+AdvancedSwitch(
+    controller: _controller,
+),
+// ...
+```
+
 Regular Switch
 
 ```dart
+// ...
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
@@ -37,6 +73,7 @@ AdvancedSwitch(
 Customized Switch
 
 ```dart
+// ...
 final _controller = AdvancedSwitchController();
 // ...
 AdvancedSwitch(
@@ -56,6 +93,26 @@ AdvancedSwitch(
 // ...
 ```
 
+Custom thumb
+
+```dart
+// ...
+final _controller = AdvancedSwitchController();
+// ...
+AdvancedSwitch(
+    controller: _controller,
+    thumb: ValueListenableBuilder(
+        valueListenable: _controller,
+        builder: (_, value, __) {
+            return Icon(value
+                ? Icons.lightbulb
+                : Icons.lightbulb_outline);
+        },
+    ),
+),
+// ...
+```
+
 ## AdvancedSwitch Parameters
 |Parameter|Description|Type|Default|
 |:--------|:----------|:---|:------|
@@ -71,6 +128,7 @@ AdvancedSwitch(
 |`height`|Determines width.|*Double*|30.0|
 |`enabled`|Determines height.|*bool*|true|
 |`disabledOpacity`|Determines opacity of disabled control.|*double*|0.5|
+|`thumb`|Custom thumb widget|*Widget*||
 
 # Demo
 ![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)
