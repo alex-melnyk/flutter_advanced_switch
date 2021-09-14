@@ -1,10 +1,9 @@
 # flutter_advanced_switch
 An advanced switch widget, that can be fully customized with size, text, color, radius of corners.
 
-| Switch OFF State | Switch ON State |
+| Switch Light | Switch Dark |
 |:-:|:-:|
-| ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_LIGHT_ON.png) |
-| ![Flutter Advanced Switch Off State](./PREVIEW_DARK_OFF.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK_ON.png) |
+| ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK.png) |
 
 ## Getting Started
 In the `pubspec.yaml` of your flutter project, add the following dependency:
@@ -129,6 +128,7 @@ AdvancedSwitch(
 |`height`|Determines width.|*Double*|30.0|
 |`enabled`|Determines height.|*bool*|true|
 |`disabledOpacity`|Determines opacity of disabled control.|*double*|0.5|
+|`thumb`|Custom thumb widget|*Widget*||
 
 # Demo
 ![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)
