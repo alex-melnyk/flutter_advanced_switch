@@ -12,22 +12,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _controller00 = AdvancedSwitchController();
-  final _controller01 = AdvancedSwitchController();
-  final _controller02 = AdvancedSwitchController();
-  final _controller03 = AdvancedSwitchController();
-  final _controller04 = AdvancedSwitchController();
-  final _controller05 = AdvancedSwitchController();
-  final _controller06 = AdvancedSwitchController();
-  final _controller07 = AdvancedSwitchController();
-  final _controller08 = AdvancedSwitchController();
-  final _controller09 = AdvancedSwitchController();
-  final _controller10 = AdvancedSwitchController();
-  final _controller11 = AdvancedSwitchController();
-  final _controller12 = AdvancedSwitchController();
-  final _controller13 = AdvancedSwitchController();
-  final _controller14 = AdvancedSwitchController();
-  final _controller15 = AdvancedSwitchController();
+  final _controller00 = ValueNotifier<bool>(false);
+  final _controller01 = ValueNotifier<bool>(false);
+  final _controller02 = ValueNotifier<bool>(false);
+  final _controller03 = ValueNotifier<bool>(false);
+  final _controller04 = ValueNotifier<bool>(false);
+  final _controller05 = ValueNotifier<bool>(false);
+  final _controller06 = ValueNotifier<bool>(false);
+  final _controller07 = ValueNotifier<bool>(false);
+  final _controller08 = ValueNotifier<bool>(false);
+  final _controller09 = ValueNotifier<bool>(false);
+  final _controller10 = ValueNotifier<bool>(false);
+  final _controller11 = ValueNotifier<bool>(false);
+  final _controller12 = ValueNotifier<bool>(false);
+  final _controller13 = ValueNotifier<bool>(false);
+  final _controller14 = ValueNotifier<bool>(false);
+  final _controller15 = ValueNotifier<bool>(false);
 
   bool _enabled = false;
   bool _themeDark = false;
@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
                 _buildLabel('Switch Theme'),
                 AdvancedSwitch(
                   controller: _controller00,
-                  thumb: ValueListenableBuilder(
+                  thumb: ValueListenableBuilder<bool>(
                     valueListenable: _controller00,
                     builder: (_, value, __) {
                       return Icon(value
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                     SizedBox(width: 25),
                     AdvancedSwitch(
                       controller: _controller01,
-                      thumb: ValueListenableBuilder(
+                      thumb: ValueListenableBuilder<bool>(
                         valueListenable: _controller01,
                         builder: (_, value, __) {
                           return Icon(value
@@ -104,12 +104,12 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     AdvancedSwitch(
                       enabled: _enabled,
-                      controller: AdvancedSwitchController(false),
+                      controller: ValueNotifier(false),
                     ),
                     SizedBox(width: 25),
                     AdvancedSwitch(
                       enabled: _enabled,
-                      controller: AdvancedSwitchController(true),
+                      controller: ValueNotifier(true),
                     ),
                     SizedBox(width: 25),
                     ElevatedButton(

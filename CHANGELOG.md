@@ -1,3 +1,8 @@
+## 3.0.0
+
+* Custom controller changed to ValueNotifier.
+* Reload animation on widget update.
+
 ## 2.1.0
 
 * Change thumb with a custom widget support provided.
