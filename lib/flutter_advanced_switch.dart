@@ -77,14 +77,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     super.initState();
 
     _controller = widget.controller ?? ValueNotifier<bool>(false);
-
-    _controller.addListener(() {
-      if (_controller.value) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
-    });
+    _controller.addListener(_handleControllerValueChanged);
 
     _animationController = AnimationController(
       vsync: this,
@@ -100,26 +93,6 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     super.didUpdateWidget(oldWidget);
 
     _initAnimation();
-  }
-
-  void _initAnimation() {
-    _thumbSize = widget.height;
-    final offset = widget.width / 2 - _thumbSize / 2;
-
-    final animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: Offset(-offset, 0),
-      end: Offset(offset, 0),
-    ).animate(animation);
-
-    _colorAnimation = ColorTween(
-      begin: widget.inactiveColor,
-      end: widget.activeColor,
-    ).animate(animation);
   }
 
   @override
@@ -258,6 +231,34 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     );
   }
 
+  void _initAnimation() {
+    _thumbSize = widget.height;
+    final offset = widget.width / 2 - _thumbSize / 2;
+
+    final animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(-offset, 0),
+      end: Offset(offset, 0),
+    ).animate(animation);
+
+    _colorAnimation = ColorTween(
+      begin: widget.inactiveColor,
+      end: widget.activeColor,
+    ).animate(animation);
+  }
+
+  void _handleControllerValueChanged() {
+    if (_controller.value) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
   void _handlePressed() {
     if (widget.controller != null && widget.enabled) {
       _controller.value = !_controller.value;
@@ -266,11 +267,13 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _controller.removeListener(_handleControllerValueChanged);
 
     if (widget.controller == null) {
       _controller.dispose();
     }
+
+    _animationController.dispose();
 
     super.dispose();
   }
