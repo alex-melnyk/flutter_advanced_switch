@@ -1,3 +1,7 @@
+## 3.0.0+1
+
+* Documentation updated.
+
 ## 3.0.0
 
 * Custom controller changed to ValueNotifier.

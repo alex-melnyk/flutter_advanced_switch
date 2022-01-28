@@ -27,7 +27,7 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 ```dart
 // ...
 // 1. Create a controller in the state of the StatefulWidget
-final _controller = AdvancedSwitchController();
+final _controller = ValueNotifier<bool>(false);
 
 // 2. In case, you want to call setState on switch changes.
 // 2.1. Add event listener, for example in the initState() method.
@@ -62,7 +62,7 @@ Regular Switch
 
 ```dart
 // ...
-final _controller = AdvancedSwitchController();
+final _controller = ValueNotifier<bool>(false);
 // ...
 AdvancedSwitch(
     controller: _controller,
@@ -74,7 +74,7 @@ Customized Switch
 
 ```dart
 // ...
-final _controller = AdvancedSwitchController();
+final _controller = ValueNotifier<bool>(false);
 // ...
 AdvancedSwitch(
     controller: _controller,
@@ -97,7 +97,7 @@ Custom thumb
 
 ```dart
 // ...
-final _controller = AdvancedSwitchController();
+final _controller = ValueNotifier<bool>(false);
 // ...
 AdvancedSwitch(
     controller: _controller,
@@ -116,7 +116,7 @@ AdvancedSwitch(
 ## AdvancedSwitch Parameters
 |Parameter|Description|Type|Default|
 |:--------|:----------|:---|:------|
-|`controller`|Determines if widget is enabled.|*AdvancedSwitchController*||
+|`controller`|Determines if widget is enabled.|*ValueNotifier<bool>*||
 |`activeColor`|Determines current state.|*Color*|Colors.green|
 |`inactiveColor`|Determines background color for the active state.|*Color*|Colors.grey|
 |`activeChild`|Determines background color for the inactive state.|*Widget*||
