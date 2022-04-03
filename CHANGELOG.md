@@ -1,3 +1,7 @@
+## 3.0.1
+
+* BoxDecoration borderRadius replaced with ClipRRect
+
 ## 3.0.0+1
 
 * Documentation updated.

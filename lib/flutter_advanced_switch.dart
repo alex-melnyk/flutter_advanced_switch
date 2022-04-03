@@ -109,15 +109,15 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (_, child) {
-              return Container(
-                width: widget.width,
-                height: widget.height,
+              return ClipRRect(
+                borderRadius: widget.borderRadius,
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: widget.borderRadius,
+                child: Container(
+                  width: widget.width,
+                  height: widget.height,
                   color: _colorAnimation.value,
+                  child: child,
                 ),
-                child: child,
               );
             },
             child: Stack(

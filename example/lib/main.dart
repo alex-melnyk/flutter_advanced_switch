@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:flutter_icons/flutter_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -71,10 +71,30 @@ class _MyAppState extends State<MyApp> {
                   thumb: ValueListenableBuilder<bool>(
                     valueListenable: _controller00,
                     builder: (_, value, __) {
-                      return Icon(value
-                          ? Icons.lightbulb
-                          : Icons.lightbulb_outline);
+                      return Icon(
+                          value ? Icons.lightbulb : Icons.lightbulb_outline);
                     },
+                  ),
+                ),
+                UnconstrainedBox(
+                  child: AdvancedSwitch(
+                    controller: _controller01,
+                    width: 110,
+                    enabled: false,
+                    inactiveColor: Colors.red,
+                    activeColor: Colors.green,
+                    activeChild: Text(
+                      'File selected',
+                      style: TextStyle(
+                        color: Colors.black87,
+                      ),
+                    ),
+                    inactiveChild: Text(
+                      'No File Selected',
+                      style: TextStyle(
+                        color: Colors.black87,
+                      ),
+                    ),
                   ),
                 ),
                 _buildLabel('Default Switch'),
@@ -133,10 +153,10 @@ class _MyAppState extends State<MyApp> {
                     ),
                     AdvancedSwitch(
                       activeChild: Icon(
-                        MaterialCommunityIcons.weather_sunny,
+                        Icons.terrain,
                         color: Colors.blue,
                       ),
-                      inactiveChild: Icon(MaterialCommunityIcons.weather_night),
+                      inactiveChild: Icon(Icons.cloud),
                       activeColor: Colors.yellowAccent,
                       inactiveColor: Colors.deepPurple,
                       width: 60,
