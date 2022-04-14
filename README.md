@@ -1,6 +1,8 @@
 # flutter_advanced_switch
 An advanced switch widget, that can be fully customized with size, text, color, radius of corners.
 
+![APP_ICON](./APP_ICON.png)
+
 | Switch Light | Switch Dark |
 |:-:|:-:|
 | ![Flutter Advanced Switch Off State](./PREVIEW_LIGHT.png) | ![Flutter Advanced Switch On State](./PREVIEW_DARK.png) |
