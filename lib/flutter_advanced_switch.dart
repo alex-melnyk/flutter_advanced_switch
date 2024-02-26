@@ -1,5 +1,3 @@
-import 'package:flutter/animation.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class AdvancedSwitch extends StatefulWidget {
@@ -18,6 +16,8 @@ class AdvancedSwitch extends StatefulWidget {
     this.enabled = true,
     this.disabledOpacity = 0.5,
     this.thumb,
+    this.initialValue = false,
+    this.onChanged,
   }) : super(key: key);
 
   /// Determines if widget is enabled
@@ -59,6 +59,12 @@ class AdvancedSwitch extends StatefulWidget {
   /// Thumb widget.
   final Widget? thumb;
 
+  /// The initial value.
+  final bool initialValue;
+
+  /// Called when the value of the switch should change.
+  final ValueChanged? onChanged;
+
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
@@ -76,8 +82,9 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   void initState() {
     super.initState();
 
-    _controller = widget.controller ?? ValueNotifier<bool>(false);
-    _controller.addListener(_handleControllerValueChanged);
+    _controller = ValueNotifier<bool>(widget.initialValue);
+
+    _valueController.addListener(_handleControllerValueChanged);
 
     _animationController = AnimationController(
       vsync: this,
@@ -92,6 +99,15 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   void didUpdateWidget(covariant AdvancedSwitch oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    oldWidget.controller?.removeListener(_handleControllerValueChanged);
+    _valueController
+      ..removeListener(_handleControllerValueChanged)
+      ..addListener(_handleControllerValueChanged);
+
+    if (oldWidget.initialValue != widget.initialValue) {
+      _valueController.value = widget.initialValue;
+    }
+
     _initAnimation();
   }
 
@@ -105,7 +121,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
       child: GestureDetector(
         onTap: _handlePressed,
         child: Opacity(
-          opacity: widget.enabled ? 1 : widget.disabledOpacity,
+          opacity: _isEnabled ? 1 : widget.disabledOpacity,
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (_, child) {
@@ -124,10 +140,12 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
               children: [
                 if (widget.activeImage != null || widget.inactiveImage != null)
                   ValueListenableBuilder<bool>(
-                    valueListenable: _controller,
-                    builder: (_, __, ___) {
+                    valueListenable: _valueController,
+                    builder: (_, value, ___) {
+                      print('value: $value');
+
                       return AnimatedCrossFade(
-                        crossFadeState: _controller.value
+                        crossFadeState: value
                             ? CrossFadeState.showSecond
                             : CrossFadeState.showFirst,
                         duration: _duration,
@@ -231,6 +249,11 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     );
   }
 
+  ValueNotifier<bool> get _valueController => widget.controller ?? _controller;
+
+  bool get _isEnabled =>
+      widget.enabled && (widget.controller != null || widget.onChanged != null);
+
   void _initAnimation() {
     _thumbSize = widget.height;
     final offset = widget.width / 2 - _thumbSize / 2;
@@ -252,7 +275,10 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   }
 
   void _handleControllerValueChanged() {
-    if (_controller.value) {
+    final nextValue = _valueController.value;
+    widget.onChanged?.call(nextValue);
+
+    if (nextValue) {
       _animationController.forward();
     } else {
       _animationController.reverse();
@@ -260,18 +286,18 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   }
 
   void _handlePressed() {
-    if (widget.controller != null && widget.enabled) {
-      _controller.value = !_controller.value;
+    if (!_isEnabled) {
+      return;
     }
+
+    _valueController.value = !_valueController.value;
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_handleControllerValueChanged);
+    _valueController.removeListener(_handleControllerValueChanged);
 
-    if (widget.controller == null) {
-      _controller.dispose();
-    }
+    _controller..dispose();
 
     _animationController.dispose();
 
