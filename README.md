@@ -116,21 +116,23 @@ AdvancedSwitch(
 ```
 
 ## AdvancedSwitch Parameters
-|Parameter|Description|Type|Default|
-|:--------|:----------|:---|:------|
-|`controller`|Determines if widget is enabled.|*ValueNotifier<bool>*||
-|`activeColor`|Determines current state.|*Color*|Colors.green|
-|`inactiveColor`|Determines background color for the active state.|*Color*|Colors.grey|
-|`activeChild`|Determines background color for the inactive state.|*Widget*||
-|`inactiveChild`|Determines label for the active state.|*Widget*||
-|`activeImage`|Determines label for the inactive state.|*ImageProvider*||
-|`inactiveImage`|Determines background image for the active state.|*ImageProvider*||
-|`borderRadius`|Determines background image for the inactive state.|*BorderRadius*|Radius.circular(15)|
-|`width`|Determines border radius.|*Double*|50.0|
-|`height`|Determines width.|*Double*|30.0|
-|`enabled`|Determines height.|*bool*|true|
-|`disabledOpacity`|Determines opacity of disabled control.|*double*|0.5|
-|`thumb`|Custom thumb widget|*Widget*||
+|Parameter| Description                                         | Type                  | Default             |
+|:--------|:----------------------------------------------------|:----------------------|:--------------------|
+|`controller`| Determines if widget is enabled.                    | *ValueNotifier<bool>* ||
+|`activeColor`| Determines current state.                           | *Color*               | Colors.green        |
+|`inactiveColor`| Determines background color for the active state.   | *Color*               | Colors.grey         |
+|`activeChild`| Determines background color for the inactive state. | *Widget*              ||
+|`inactiveChild`| Determines label for the active state.              | *Widget*              ||
+|`activeImage`| Determines label for the inactive state.            | *ImageProvider*       ||
+|`inactiveImage`| Determines background image for the active state.   | *ImageProvider*       ||
+|`borderRadius`| Determines background image for the inactive state. | *BorderRadius*        | Radius.circular(15) |
+|`width`| Determines border radius.                           | *Double*              | 50.0                |
+|`height`| Determines width.                                   | *Double*              | 30.0                |
+|`enabled`| Determines height.                                  | *bool*                | true                |
+|`disabledOpacity`| Determines opacity of disabled control.             | *double*              | 0.5                 |
+| `thumb`         | Custom thumb widget                                 | *Widget*              ||
+| `initialValue`  | Initial value                                       | *bool*                | false               |
+| `onChanged`         | Changed callback                                    | *ValueChanged<bool>*  ||
 
 # Demo
 ![Flutter Advanced Switch Preview](./SWITCH_PREVIEW.gif)

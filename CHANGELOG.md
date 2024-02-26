@@ -1,3 +1,9 @@
+## 3.1.0
+
+* Implemented second way to handle and change the value of the switch.
+* Properties `initialValue` and `onChanged` were added.
+* Prevent widget enabled when `controller` and `onChanged` is null.
+
 ## 3.0.1
 
 * BoxDecoration borderRadius replaced with ClipRRect

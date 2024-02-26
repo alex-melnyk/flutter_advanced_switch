@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
 
   bool _enabled = false;
   bool _themeDark = false;
+  bool _initialValue = false;
 
   @override
   void initState() {
@@ -124,7 +125,12 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     AdvancedSwitch(
                       enabled: _enabled,
-                      controller: ValueNotifier(false),
+                      initialValue: _initialValue,
+                      onChanged: (value) {
+                        setState(() {
+                          _initialValue = !_initialValue;
+                        });
+                      },
                     ),
                     SizedBox(width: 25),
                     AdvancedSwitch(
