@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -73,7 +72,8 @@ class _MyAppState extends State<MyApp> {
                     valueListenable: _controller00,
                     builder: (_, value, __) {
                       return Icon(
-                          value ? Icons.lightbulb : Icons.lightbulb_outline);
+                        value ? Icons.lightbulb : Icons.lightbulb_outline,
+                      );
                     },
                   ),
                 ),
@@ -105,7 +105,7 @@ class _MyAppState extends State<MyApp> {
                     AdvancedSwitch(
                       controller: _controller01,
                     ),
-                    SizedBox(width: 25),
+                    SizedBox(width: 20),
                     AdvancedSwitch(
                       controller: _controller01,
                       thumb: ValueListenableBuilder<bool>(
@@ -116,6 +116,12 @@ class _MyAppState extends State<MyApp> {
                               : Icons.cloud_download);
                         },
                       ),
+                    ),
+                    SizedBox(width: 20),
+                    AdvancedSwitch(
+                      initialValue: true,
+                      enabled: false,
+                      onChanged: (value) {},
                     ),
                   ],
                 ),

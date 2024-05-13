@@ -1,3 +1,8 @@
+## 3.1.1
+
+* Documentation updated.
+* Removed unnecessary dependencies.
+
 ## 3.1.0
 
 * Implemented second way to handle and change the value of the switch.
