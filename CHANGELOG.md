@@ -1,3 +1,7 @@
+## 3.2.1
+
+* Fixed switch animation not reflecting the controller's initial value (regression missing from the 3.2.0 release).
+
 ## 3.2.0
 
 * `decoration` property added to replace deprecated `borderRadius`.
