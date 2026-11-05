@@ -136,8 +136,10 @@ class AdvancedSwitch extends StatefulWidget {
 class _AdvancedSwitchState extends State<AdvancedSwitch>
     with SingleTickerProviderStateMixin {
   static const _duration = Duration(milliseconds: 250);
-  late ValueNotifier<bool> _controller;
+  /// Internal notifier, only created (and owned) when [AdvancedSwitch.controller] is null.
+  ValueNotifier<bool>? _controller;
   late AnimationController _animationController;
+  late CurvedAnimation _curvedAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<Color?> _colorAnimation;
   late double _thumbSize;
@@ -146,11 +148,17 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   void initState() {
     super.initState();
 
-    _controller = ValueNotifier<bool>(widget.initialValue);
+    if (widget.controller == null) {
+      _controller = ValueNotifier<bool>(widget.initialValue);
+    }
     _animationController = AnimationController(
       vsync: this,
       duration: _duration,
       value: _valueController.value ? 1.0 : 0.0,
+    );
+    _curvedAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
     );
     _valueController.addListener(_handleControllerValueChanged);
 
@@ -162,8 +170,17 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.controller != widget.controller) {
-      oldWidget.controller?.removeListener(_handleControllerValueChanged);
-      widget.controller?.addListener(_handleControllerValueChanged);
+      (oldWidget.controller ?? _controller!)
+          .removeListener(_handleControllerValueChanged);
+      if (widget.controller == null) {
+        // Continue from the parent's last value, as TextField does.
+        _controller = ValueNotifier<bool>(oldWidget.controller!.value);
+      } else {
+        _controller?.dispose();
+        _controller = null;
+      }
+      _valueController.addListener(_handleControllerValueChanged);
+      _animationController.value = _valueController.value ? 1.0 : 0.0;
     }
 
     _initAnimation();
@@ -172,9 +189,8 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
   @override
   void dispose() {
     _valueController.removeListener(_handleControllerValueChanged);
-    if (widget.controller == null) {
-      _controller.dispose();
-    }
+    _controller?.dispose();
+    _curvedAnimation.dispose();
     _animationController.dispose();
 
     super.dispose();
@@ -319,7 +335,7 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     );
   }
 
-  ValueNotifier<bool> get _valueController => widget.controller ?? _controller;
+  ValueNotifier<bool> get _valueController => widget.controller ?? _controller!;
 
   bool get _isEnabled =>
       widget.enabled && (widget.controller != null || widget.onChanged != null);
@@ -328,20 +344,15 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     _thumbSize = widget.height;
     final offset = widget.width / 2 - _thumbSize / 2;
 
-    final animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-
     _slideAnimation = Tween<Offset>(
       begin: Offset(-offset, 0),
       end: Offset(offset, 0),
-    ).animate(animation);
+    ).animate(_curvedAnimation);
 
     _colorAnimation = ColorTween(
       begin: widget.inactiveColor,
       end: widget.activeColor,
-    ).animate(animation);
+    ).animate(_curvedAnimation);
   }
 
   void _handleControllerValueChanged() {
