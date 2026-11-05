@@ -1,3 +1,8 @@
+## 3.2.2
+
+* Fixed memory leaks in `_AdvancedSwitchState`.
+* Minimum Dart SDK raised to 3.0.0.
+
 ## 3.2.1
 
 * Fixed switch animation not reflecting the controller's initial value (regression missing from the 3.2.0 release).
